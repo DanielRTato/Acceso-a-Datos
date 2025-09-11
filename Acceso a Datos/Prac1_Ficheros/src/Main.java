@@ -10,6 +10,11 @@ public class Main {
 
     }
 
+    /**
+     * Detecta se unha cadea dada corresponde a un directorio
+     * @param cadea
+     * @return
+     */
     public static String eDirectorio(String cadea) {
         File archivo = new File(cadea);
         if (archivo.isDirectory()) {
@@ -19,6 +24,11 @@ public class Main {
         }
     }
 
+    /**
+     * Comproba se unha cadea dada corresponde a un ficheiro
+     * @param cadea
+     * @return
+     */
     public static String eFicheiro(String cadea) {
         File archivo = new File(cadea);
         if (archivo.isFile()) {
@@ -28,6 +38,10 @@ public class Main {
         }
     }
 
+    /**
+     * Crea un directorio a partir da ruta absoluta
+     * @param directorio ruta absoluta do directorio a crear
+     */
     public static void creaDirectirio(String directorio) {
         File archivo = new File(directorio);
         if (!archivo.exists()) {
@@ -36,6 +50,9 @@ public class Main {
         else {
             System.out.println("O directorio xa existe");
         }
+    }
+
+    public static void crearFicheiro(String dirName, String fileName) {
 
     }
 
