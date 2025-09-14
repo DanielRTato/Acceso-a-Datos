@@ -6,7 +6,47 @@
 
 import java.io.File;
 public class Main {
+
+    public static final String directorio = "C://Users//Usuario//Desktop//Acceso a Datos//Prac1_Ficheros//arquivosdir";
+
     public static void main(String[] args) {
+
+        // Ejercios de la Parte 2
+
+        //Ej 1. Crea el directorio si no existe y comprueba que sea un directorio
+        creaDirectorio(directorio);
+        System.out.println(eDirectorio(directorio));
+
+        //Ej 2. Crea archivo Productos1.txt si no existe y comprueba que sea un fichero
+        crearFicheiro(directorio,"Products1.txt"  );
+        System.out.println(eFicheiro(directorio + "//Products1.txt"));
+
+        //Ej 3. Dentro del directorio anterior crear uno nuevo y otro archivo
+        String subdir = directorio + "//subdir";
+        creaDirectorio(subdir);
+        crearFicheiro(subdir, "Products2.txt");
+
+        //Ej 4.
+        mContido(directorio);
+
+        //Ej 5. Muestra si se puede leer y escribir en ese archivo y su longitud
+        modoAcceso(directorio, "Products1.txt");
+        System.out.println(calculaLonxitude(directorio, "Products1.txt"));
+
+        //Ej 6. Convierte el archivo en solo lectura
+        mLectura(directorio, "Products1.txt");
+
+        //Ej 7. Permite escribir en el archivo
+        mEscritura(directorio, "Products1.txt");
+
+        //Ej 8. Borrar un archivo
+        borrarFicheiro(directorio, "Products1.txt");
+
+        //Ej 9. Borrar los archivos y directorios creados
+        borrarFicheiro(subdir, "Products2.txt");
+        borrarDirectorio(subdir);
+        borrarDirectorio(directorio);
+
 
 
     }
@@ -46,7 +86,7 @@ public class Main {
      *
      * @param directorio ruta absoluta do directorio a crear
      */
-    public static void creaDirectirio(String directorio) {
+    public static void creaDirectorio(String directorio) {
         File archivo = new File(directorio);
         if (!archivo.exists()) {
             archivo.mkdir();
@@ -61,6 +101,15 @@ public class Main {
             dir.mkdir();
         }
         File file = new File(dir, fileName);
+        try {
+            if (file.createNewFile()) {
+                System.out.println("Ficheiro creado correctamente");
+            } else {
+                System.out.println("O ficheiro xa existe");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public static void modoAcceso(String dirName, String fileName) {
@@ -89,6 +138,7 @@ public class Main {
         return longitud;
     }
 
+
     public static void mLectura(String dirName, String fileName) {
         File file = new File(dirName, fileName);
 
@@ -101,31 +151,39 @@ public class Main {
         File file = new File(dirName, fileName);
 
         if (file.exists()) {
-            file.setWritable(false);
+            file.setWritable(true);
         }
     }
 
-    public static String borrarFicheiro(String dirName, String fileName) {
+    public static void borrarFicheiro(String dirName, String fileName) {
         File file = new File(dirName, fileName);
 
-        if (file.exists()){
-            file.delete();
-            System.out.println("Fichero eliminado correctamente");
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("Ficheiro eliminado correctamente");
+            } else {
+                System.out.println("Non se puido eliminar o ficheiro");
+            }
+        } else {
+            System.out.println("Ficheiro inexistente");
         }
-        return "ficheiro inexistente";
     }
 
     public static void borrarDirectorio(String dirName){
         File dir = new File(dirName);
-        if (dir.exists()){
-            dir.delete();
-            System.out.println("Directorio eliminado correctamente");
+        if (dir.exists()) {
+            if (dir.isDirectory() && dir.list().length == 0) {
+                dir.delete();
+                System.out.println("Directorio eliminado correctamente");
+            } else {
+                System.out.println("ruta inexistente ou con descendencia");
+            }
         } else {
-            System.out.println("Directorio inexistente");
+            System.out.println("Ruta inexistente");
         }
     }
 
-        public void mContido (String dirName) {
+        public static void mContido (String dirName) {
             File dir = new File(dirName);
             if (dir.exists()) {
                 String[] ficheros = dir.list();
@@ -133,7 +191,7 @@ public class Main {
                     System.out.println(fichero);
                 }
             } else {
-                System.out.println("El directorio no existe o no es un directorio.");
+                System.out.println("El directorio no existe");
             }
         }
 
