@@ -33,7 +33,8 @@ public class Main {
             while ((dato = fis.read()) != -1) {
                 fos.write(dato);
             }
-
+            fis.close();
+            fos.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -48,9 +49,31 @@ public class Main {
             while ((dato = fis.read()) != -1) {
                 fos.write(dato);
             }
-
+            fis.close();
+            fos.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
+
+    }
+    // PARTE 2
+    public static void copiarImagen (String origen, String destino) {
+        File archivo = new File("texto1.txt");
+        try {
+            FileInputStream fis = new FileInputStream(archivo);
+            FileOutputStream fos = new FileOutputStream("texto2.txt");
+
+            int dato = 0;
+            while ((dato = fis.read()) != -1) {
+                fos.write(dato);
+            }
+            fis.close();
+            fos.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
