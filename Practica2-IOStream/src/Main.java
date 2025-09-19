@@ -30,11 +30,27 @@ public class Main {
             FileOutputStream fos = new FileOutputStream("texto2.txt");
 
             int dato = 0;
+            while ((dato = fis.read()) != -1) {
+                fos.write(dato);
+            }
 
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
 
+        // Ejercicio 3 añade el contenido del primer documento al final del segundo
+        try {
+            FileInputStream fis = new FileInputStream(archivo);
+            FileOutputStream fos = new FileOutputStream("texto2.txt", true); // Al poner true el texto se pone al final en lugar de sobreescribir
+
+            int dato = 0;
+            while ((dato = fis.read()) != -1) {
+                fos.write(dato);
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
