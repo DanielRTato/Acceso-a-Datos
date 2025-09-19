@@ -3,6 +3,7 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
+        copiarImagen("foto.jpg", "foto2.jpg");
         // PARTE 1
 
         //Ejercicio 1 Crear un documento y escribir en el
@@ -60,10 +61,10 @@ public class Main {
     }
     // PARTE 2
     public static void copiarImagen (String origen, String destino) {
-        File archivo = new File("texto1.txt");
+        File archivo = new File(origen);
         try {
             FileInputStream fis = new FileInputStream(archivo);
-            FileOutputStream fos = new FileOutputStream("texto2.txt");
+            FileOutputStream fos = new FileOutputStream(destino);
 
             int dato = 0;
             while ((dato = fis.read()) != -1) {
