@@ -108,6 +108,7 @@ public class Main {
             while ((dato = bis.read()) != -1) {
                 bos.write(dato);
             }
+        bos.close();
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -115,6 +116,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        // PARTE 3
 
     }
 
