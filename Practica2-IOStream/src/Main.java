@@ -11,11 +11,9 @@ public class Main {
 
 
         // PARTE 2
-       // copiarImagen("foto.jpg", "foto2.jpg");
+        copiarImagen("foto.jpg", "foto2.jpg");
         copiarImagenBuffer("foto.jpg", "foto2.jpg");
 
-        // PARTE 3
-        grabar3Veces("texto3.txt");
 
 
     }
@@ -116,13 +114,6 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // PARTE 3
-    public static void grabar3Veces (String origen) {
-        File archivo = new File(origen);
-
-
     }
 
 
