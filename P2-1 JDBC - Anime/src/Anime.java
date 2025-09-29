@@ -45,5 +45,15 @@ public class Anime {
     public void setPuntuacion(int puntuacion) {
         this.puntuacion = puntuacion;
     }
+
+    @Override
+    public String toString() {
+        return "Anime{" +
+                "nome='" + nome + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", data=" + data +
+                ", puntuacion=" + puntuacion +
+                '}';
+    }
 }
 
