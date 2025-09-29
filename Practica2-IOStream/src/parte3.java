@@ -5,6 +5,9 @@ public class parte3 {
 
         // PARTE 3
         grabar3Veces("texto3.txt");
+
+        System.out.println("-----------------------------------------");
+
         leer("texto3.txt");
 
 
@@ -16,15 +19,17 @@ public class parte3 {
 
         try{
             DataInputStream dis = new DataInputStream(new FileInputStream(archivo));
-            DataOutputStream dos = new DataOutputStream(new FileOutputStream(archivo, true));
+            DataOutputStream dos = new DataOutputStream(new FileOutputStream(archivo));
 
-            dos.writeUTF("Cadea: o tempo está xélido\n");
-            dos.writeUTF("Cadea: o tempo está xélido\n");
-            dos.writeUTF("Cadea: o tempo está xélido\n");
-            System.out.println(dos.size());
-            dis.close();
-            dos.close();
-            System.out.println(archivo.length() + " bytes");
+             String cadena = "o tempo está xélido";
+
+            for (int i = 1; i <= 3; i++) {
+                dos.writeUTF(cadena);
+                System.out.println("Escribindo a cadea: " + cadena);
+                System.out.println("Tamaño do ficheiro: " + dos.size() + " bytes");
+            }
+            System.out.println("tamano final do ficheiro: " + dos.size() + " bytes");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -37,9 +42,11 @@ public class parte3 {
             DataInputStream dis = new DataInputStream(new FileInputStream(archivo));
 
             while (dis.available() > 0) {
-                System.out.println(dis.readUTF());
+                System.out.println("Quedan: " + dis.available() + " bytes por ler");
+                String leido = dis.readUTF();
+                System.out.println("Cadea: " + leido);
             }
-            dis.close();
+            System.out.println("Xa non queda nada por ler");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
