@@ -4,10 +4,19 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Connection conn = Conexion.conexion();
-        if (conn != null) {
-            System.out.println("A conexión funciona");
-        }
+
+
+        AnimeService as = new AnimeService();
+//        Anime anime = new Anime(
+//                "shin-chan",
+//                "Cuiño cuiño",
+//                as.stringToDate("1997-10-11"),
+//                99
+//        );
+//
+//       as.insertAnime(anime);
+
+        System.out.println(as.leer());
 
     }
 

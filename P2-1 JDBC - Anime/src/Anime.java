@@ -1,3 +1,6 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 
@@ -13,6 +16,7 @@ public class Anime {
         this.data = data;
         this.puntuacion = puntuacion;
     }
+
 
     public String getNome() {
         return nome;
@@ -54,6 +58,21 @@ public class Anime {
                 ", data=" + data +
                 ", puntuacion=" + puntuacion +
                 '}';
+    }
+
+    public String dateToString(Date dataD) {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        return formato.format(dataD);
+    }
+    public Date stringToDate(String dataStr) {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            java.util.Date dataUtil = formato.parse(dataStr);
+            return new Date(dataUtil.getTime());
+        } catch (ParseException e) {
+            System.out.println("petou" + e);
+            return null;
+        }
     }
 }
 
