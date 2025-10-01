@@ -5,7 +5,7 @@ import java.sql.SQLException;
 public class Conexion {
 
     public static Connection conexion() {
-        String url = "jdbc:postgresql://10.0.9.100:5432/animedb";
+        String url = "jdbc:postgresql://192.168.0.28:5432/animedb";
         String usuario = "postgres";
         String contrasinal = "admin";
         Connection conn = null;

@@ -47,36 +47,55 @@ public class AnimeService {
     }
 
     /**
-     * Busca los animes con mayor puntuacion de la especificada
+     * Busca los animes con mayor puntuacion de la pasada por parametro
      * @param puntuacion
      * @return
      */
-    public Anime leerFiltrado(int puntuacion) {
-        String consulta = "select * from anime where puntuacion < ?";
+    public List<Anime> leerFiltrado(int puntuacion) {
+        List<Anime> lista = new ArrayList<>();
+        String consulta = "select * from anime where puntuacion > ?";
         try (Connection conn = Conexion.conexion();
              PreparedStatement stmt = conn.prepareStatement(consulta)) {
 
             stmt.setInt(1, puntuacion);
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new Anime(
+                while (rs.next()) {
+                    lista.add(new Anime(
                             rs.getString("nome"),
                             rs.getString("descripcion"),
                             rs.getDate("data"),
-                            rs.getInt("puntuacion\n")
-
-                    );
+                            rs.getInt("puntuacion")
+                    ));
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return lista;
     }
 
-    public void actualizar() {
+    public void actualizar(Anime anime) {
+        String consulta = "update anime set descripcion = ?, data = ?, puntuacion = ? where nome = ?";
+        try (Connection conn = Conexion.conexion();
+             PreparedStatement stmt = conn.prepareStatement(consulta)) {
 
+            stmt.setString(1, anime.getDescripcion());
+            stmt.setDate(2, anime.getData());
+            stmt.setInt(3, anime.getPuntuacion());
+            stmt.setString(4, anime.getNome()); // criterio de búsqueda
+
+            int filas = stmt.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Actualizado: " + anime.getNome());
+            } else {
+                System.out.println("No se encontró el anime con nome: " + anime.getNome());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
     public void eliminar (String nome) {
         String consulta = "delete from anime where nome = ?";
