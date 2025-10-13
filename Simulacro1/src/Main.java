@@ -44,7 +44,9 @@ public class Main {
 
         // Modiciar el porcentaje de inventarioVehiculos
 
+        System.out.println("OFERTAS COCHES");
         invetarioSer.updatePorcentaje();
+
 
 
 

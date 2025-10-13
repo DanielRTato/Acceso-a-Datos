@@ -56,6 +56,10 @@ public class InventarioTendaService {
             System.out.println("Error al hacer update sobre el porcentaje: "+ e);
         }
     }
+
+    public void actualizarPrezoVenta() {
+        String consultaPorcentaxe = "select porcentaxeoferta from inventariotenda";
+    }
 }
 
 

@@ -36,6 +36,8 @@ public class SerializacionVehiculo implements Serializable {
         }
     }
 
+    //Lee loc 4 primeros o el primero o sin todos los campos prubas de examen
+    // Leer datos y tabajar con ellos viniendo de distitntos sitios (base de datos o ficheros)
     public void desSerializarVehiculo (String ruta) {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta));

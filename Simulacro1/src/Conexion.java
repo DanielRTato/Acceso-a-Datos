@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    private static final String url = "jdbc:postgresql://192.168.0.31:5432/probas";
+    private static final String url = "jdbc:postgresql://10.0.9.202:5432/probas";
     private static final String user = "postgres";
     private static final String password = "admin";
 
