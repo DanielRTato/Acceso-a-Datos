@@ -13,6 +13,8 @@ public class AdeptaSororitas implements Serializable {
         this.puntos = puntos;
     }
 
+    public AdeptaSororitas(){}
+
     public int getCod() {
         return cod;
     }
