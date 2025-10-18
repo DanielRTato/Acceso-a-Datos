@@ -2,10 +2,7 @@ package DAO;
 
 import model.AdeptaSororitas;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +31,33 @@ public class AdeptaDAO {
 
         return lista;
     }
+
+
+    public AdeptaSororitas buscarPorCodigo(int cod) {
+        AdeptaSororitas sororita = null;
+        String sql = "SELECT * FROM adeptaSororitas WHERE cod = ?";
+
+        try (Connection conn = Conexion.conexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, cod);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                sororita = new AdeptaSororitas(
+                        rs.getInt("cod"),
+                        rs.getString("nome"),
+                        rs.getInt("puntos")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al buscar por código: " + e.getMessage());
+        }
+
+        return sororita;
+    }
+
 }
 
 
