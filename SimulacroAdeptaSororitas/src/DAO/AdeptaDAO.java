@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AdeptaDAO {
 
-    public List<AdeptaSororitas> obtenerTodas() {
+        public List<AdeptaSororitas> obtenerTodas() {
         List<AdeptaSororitas> lista = new ArrayList<>();
         String sql = "SELECT * FROM adeptaSororitas";
 
@@ -56,6 +56,24 @@ public class AdeptaDAO {
         }
 
         return sororita;
+    }
+
+    // Calucla la media desde la BD con una consulta
+    public void mediaPuntos () {
+        String sql = "SELECT AVG(puntos) AS media FROM adeptaSororitas";
+        try (Connection conn = Conexion.conexion();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                double media = rs.getDouble("media");
+                System.out.println("Media de puntos (desde BD): " + media);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al calcular la media: " + e.getMessage());
+        }
+
     }
 
 }

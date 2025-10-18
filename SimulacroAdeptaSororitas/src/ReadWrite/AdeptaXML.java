@@ -77,7 +77,7 @@ public class AdeptaXML {
                     }
                 }
 
-                // 🔹 Fin de un elemento </unidad>
+                //  Fin de un elemento </unidad>
                 else if (event == XMLStreamConstants.END_ELEMENT) {
                     if (reader.getLocalName().equals("AdeptaSororita")) {
                         System.out.println("Código: " + codigo);

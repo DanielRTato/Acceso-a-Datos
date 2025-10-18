@@ -1,10 +1,15 @@
 import DAO.AdeptaDAO;
 import DAO.Conexion;
+import DAO.SpaceMarineDAO;
 import ReadWrite.AdeptaXML;
 import ReadWrite.Deserializar;
 import ReadWrite.LeerFicheroCodigos;
 import ReadWrite.Serializar;
 import model.AdeptaSororitas;
+import model.SpaceMarine;
+import util.CalculosEjercitos;
+import util.CalculosMarines;
+import util.CalculosSororitas;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -71,7 +76,60 @@ public class Main {
         }
 
 
+        // Ejemplo de coger una parte de un documento y buscarlo en la BD
+        for (int i = 0; i < 3; i++) {  // Math.min(3, codigos.size()) evita errores si el archivo tiene menos de 3 códigos
+            int cod = codigos.get(i);
+            AdeptaSororitas as = dao.buscarPorCodigo(cod);
+            if (as != null) {
+                System.out.println(as.getNome() + " - " + as.getPuntos());
+            }
+        }
 
+        //Caluclar la media de puntos con una consulta
+        AdeptaDAO adeptaDAO = new AdeptaDAO();
+        adeptaDAO.mediaPuntos();
+
+
+        // Calcular la media por una lista
+        double media = 0;
+        int total = 0;
+
+        for (AdeptaSororitas s : adeptas) {
+            media += s.getPuntos();
+            total++;
+        }
+
+        if (total > 0) media /= total;
+        System.out.println("Media de puntos: " + media);
+
+
+        // Mostrar toda la tabla de la BD
+        SpaceMarineDAO Spacedao = new SpaceMarineDAO();
+
+        // Leer todos de la BD
+        List<SpaceMarine> marines = Spacedao.obtenerTodos();
+
+        System.out.println("📋 Unidades de Space Marines:");
+        for (SpaceMarine m : marines) {
+            System.out.println(m);
+        }
+
+
+
+        AdeptaDAO daoSor = new AdeptaDAO();
+        SpaceMarineDAO daoMar = new SpaceMarineDAO();
+
+        List<AdeptaSororitas> sororitas = daoSor.obtenerTodas();
+        List<SpaceMarine> m = Spacedao.obtenerTodos();
+
+        double mediaSor = CalculosSororitas.calcularMediaPuntos(sororitas);
+        double mediaMar = CalculosMarines.calcularMediaPuntos(marines);
+        double mediaAmbos = CalculosEjercitos.CalcularMediaEjercitos(sororitas, marines);
+
+        System.out.println("------------------------------------------");
+        CalculosEjercitos.compararEjercitos(mediaSor, mediaMar);
+        System.out.printf("Media total combinada: %.2f%n", mediaAmbos);
+        System.out.println("------------------------------------------");
 
 
 

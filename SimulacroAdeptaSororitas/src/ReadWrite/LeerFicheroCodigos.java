@@ -23,6 +23,7 @@ public class LeerFicheroCodigos {
         return codigos;
     }
 
+    // Ejemplo de escribir en un fichero
     public static void escribirPuntosOrdeados(List<AdeptaSororitas> lista, String ruta) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(ruta))) {
             for (AdeptaSororitas s : lista) {
