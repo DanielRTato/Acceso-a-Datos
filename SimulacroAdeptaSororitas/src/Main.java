@@ -131,6 +131,13 @@ public class Main {
         System.out.printf("Media total combinada: %.2f%n", mediaAmbos);
         System.out.println("------------------------------------------");
 
+        SpaceMarineDAO smdao = new SpaceMarineDAO();
+        SpaceMarine spaceMarine = new SpaceMarine(4, "liada", 250);
+
+        //smdao.insertarMarine(spaceMarine);
+        //smdao.deleteMarine(10);
+        smdao.actualizarMarine(spaceMarine);
+
 
 
 

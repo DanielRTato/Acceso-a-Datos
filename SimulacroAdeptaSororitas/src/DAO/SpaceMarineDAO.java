@@ -22,7 +22,7 @@ public class SpaceMarineDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al obtener los Space Marines: " + e.getMessage());
+            System.out.println("Error al obtener los Space Marines: " + e.getMessage());
         }
 
         return lista;
@@ -50,4 +50,59 @@ public class SpaceMarineDAO {
 
         return null;
     }
+
+    public void insertarMarine(SpaceMarine marine) {
+        String consulta = "insert into spacemarines(cod, nome, puntos) values (?,?,?)";
+        try (Connection conn = Conexion.conexion();
+             PreparedStatement stmt = conn.prepareStatement(consulta)) {
+
+            stmt.setInt(1, marine.getCod());
+            stmt.setString(2, marine.getNome());
+            stmt.setInt(3, marine.getPuntos());
+            stmt.executeUpdate();
+            System.out.println("SpaceMarine " + marine.getNome() + " insertado correctamente");
+
+        } catch (SQLException e) {
+            System.out.println("Error al insertar en la tabla spacemarines " + e.getMessage());
+        }
+    }
+
+    public void deleteMarine(int codigo) {
+        String consulta = "delete from spacemarines where cod = ?";
+        try (Connection conn = Conexion.conexion();
+             PreparedStatement stmt = conn.prepareStatement(consulta)) {
+
+            stmt.setInt(1, codigo);
+            int filas = stmt.executeUpdate();
+
+            if (filas > 0) {
+                System.out.println("Eliminado correctamente");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al intentar eliminar de la BD: " + e.getMessage());
+        }
+    }
+
+    public void actualizarMarine (SpaceMarine spaceMarine) {
+        String consulta = "update spacemarines set nome = ?, puntos = ? where cod = ?";
+
+        try (Connection conn = Conexion.conexion();
+             PreparedStatement stmt = conn.prepareStatement(consulta)) {
+
+            stmt.setString(1, spaceMarine.getNome());
+            stmt.setInt(2, spaceMarine.getPuntos());
+            stmt.setInt(3, spaceMarine.getCod());
+            int filas = stmt.executeUpdate();
+            if (filas > 0 ) {
+                System.out.println("SpaceMarine actualizado correctamente: " + spaceMarine.getNome());
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al actulizar SpaceMarine: " + e.getMessage());
+        }
+    }
+
+
+
 }
