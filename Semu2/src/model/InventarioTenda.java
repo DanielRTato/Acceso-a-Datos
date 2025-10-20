@@ -15,6 +15,13 @@ public class InventarioTenda {
         this.porcentaxeOferta = porcentaxeOferta;
     }
 
+    public InventarioTenda( int idVehiculo, double prezoMayorista, double prezoVenta, int porcentaxeOferta) {
+        this.idVehiculo = idVehiculo;
+        this.prezoMayorista = prezoMayorista;
+        this.prezoVenta = prezoVenta;
+        this.porcentaxeOferta = porcentaxeOferta;
+    }
+
     public int getId() {
         return id;
     }
