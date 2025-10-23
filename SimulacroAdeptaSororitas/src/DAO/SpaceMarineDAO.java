@@ -1,4 +1,5 @@
 package DAO;
+import model.AdeptaSororitas;
 import model.SpaceMarine;
 import java.sql.*;
 import java.util.*;
@@ -34,16 +35,18 @@ public class SpaceMarineDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, cod);
-            ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                return new SpaceMarine(
-                        rs.getInt("cod"),
-                        rs.getString("nome"),
-                        rs.getInt("puntos")
-                );
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new SpaceMarine(
+                            rs.getInt("cod"),
+                            rs.getString("nome"),
+                            rs.getInt("puntos")
+                    );
+                } else {
+                    System.out.println(" No se encontró ninguna SpaceMarine con código: " + cod);
+                }
             }
-
         } catch (SQLException e) {
             System.out.println("Error al buscar por código: " + e.getMessage());
         }

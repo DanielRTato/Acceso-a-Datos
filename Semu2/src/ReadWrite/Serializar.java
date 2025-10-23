@@ -34,9 +34,10 @@ public class Serializar {
                 );
                 listVehiculo.add(vehiculo);
             }
-            ObjectOutput oos = new ObjectOutputStream(new FileOutputStream(ruta));
-            oos.writeObject(listVehiculo);
-            System.out.println("Serialización completada con exito en: " + ruta);
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ruta))) {
+                oos.writeObject(listVehiculo);
+                System.out.println(" Serialización completada con éxito en: " + ruta);
+            }
 
         } catch (SQLException | IOException e) {
             System.out.println("Error al serializar las Vehiculos: " + e.getMessage());

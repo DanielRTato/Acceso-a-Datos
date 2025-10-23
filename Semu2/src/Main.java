@@ -40,7 +40,7 @@ public class Main {
 
         // Serializar y deserializar tabla vehiculo
         Serializar.serializarVehiculo("vehiculoSerializado.dat");
-        Deserializar.deSerializarVehiculo("vehiculoSerializado.dat");
+        Deserializar.deserializarVehiculo("vehiculoSerializado.dat");
 
         // Generar XMl de Vehiculo
         VehiculoXML.crearVehiculoXML(vehiculosLista, "vehiculoXML.xml");

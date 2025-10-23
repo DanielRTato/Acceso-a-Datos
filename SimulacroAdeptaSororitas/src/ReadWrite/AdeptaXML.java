@@ -6,6 +6,7 @@ import javax.xml.stream.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,16 +48,11 @@ public class AdeptaXML {
         }
     }
 
-    /**
-     * Muestra el contenido de un archivo XML pasado por parámetro
-     * @param ruta
-     */
-    public void leerXML (String ruta) {
+
+    public void leerXML(String ruta) {
         XMLInputFactory xif = XMLInputFactory.newFactory();
-
-        try {
-            XMLStreamReader reader = xif.createXMLStreamReader(new FileInputStream(ruta));
-
+        try (FileInputStream fis = new FileInputStream(ruta)) {
+            XMLStreamReader reader = xif.createXMLStreamReader(fis);
             String nome = "";
             String puntos = "";
             String codigo = "";
@@ -67,39 +63,35 @@ public class AdeptaXML {
                 if (event == XMLStreamConstants.START_ELEMENT) {
                     String elemento = reader.getLocalName();
 
-                    // Si es <unidad>, leer su atributo "codigo"
                     if (elemento.equals("AdeptaSororita")) {
                         codigo = reader.getAttributeValue(null, "cod");
                     } else if (elemento.equals("nome")) {
-                        nome = reader.getElementText().trim(); // lee directamente el texto dentro de la etiqueta
+                        nome = reader.getElementText().trim();
                     } else if (elemento.equals("puntos")) {
                         puntos = reader.getElementText().trim();
                     }
                 }
 
-                //  Fin de un elemento </unidad>
-                else if (event == XMLStreamConstants.END_ELEMENT) {
-                    if (reader.getLocalName().equals("AdeptaSororita")) {
-                        System.out.println("Código: " + codigo);
-                        System.out.println("Nome: " + nome);
-                        System.out.println("Puntos: " + puntos);
-                        System.out.println("-----------------------");
+                else if (event == XMLStreamConstants.END_ELEMENT && reader.getLocalName().equals("AdeptaSororita")) {
+                    System.out.println("Código: " + codigo);
+                    System.out.println("Nome: " + nome);
+                    System.out.println("Puntos: " + puntos);
+                    System.out.println("-----------------------");
 
-                        // Reiniciar variables para la siguiente unidad
-                        nome = "";
-                        puntos = "";
-                        codigo = "";
-                    }
+                    // Reiniciar variables
+                    nome = "";
+                    puntos = "";
+                    codigo = "";
                 }
             }
             reader.close();
-
+            System.out.println("Lectura del XML completada correctamente.");
         } catch (FileNotFoundException e) {
-            System.out.println(" No se encontró el archivo XML: " + e.getMessage());
+            System.out.println("No se encontró el archivo XML: " + e.getMessage());
         } catch (XMLStreamException e) {
-            System.out.println(" Error al leer el XML: " + e.getMessage());
+            System.out.println("Error al leer el XML: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error de entrada/salida: " + e.getMessage());
         }
-
-
     }
 }

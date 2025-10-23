@@ -9,17 +9,18 @@ import java.util.List;
 
 public class Deserializar {
 
-    public static void deSerializarVehiculo (String ruta) {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta));
-            List<Vehiculo> listaVehiculo = (List<Vehiculo>) ois.readObject();
-            System.out.println("Deserializacion de Vehiculo correcta");
+    public static void deserializarVehiculo(String ruta) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta))) {
 
-            for (Vehiculo vehiculo : listaVehiculo) {
-                System.out.println(vehiculo);
+            List<Vehiculo> listaVehiculos = (List<Vehiculo>) ois.readObject();
+            System.out.println("Deserialización de vehículos completada correctamente.");
+
+            for (Vehiculo v : listaVehiculos) {
+                System.out.println(v);
             }
+
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error al deserializar Vehiculo: " + e.getMessage());
+            System.out.println(" Error al deserializar los vehículos: " + e.getMessage());
         }
     }
 }

@@ -54,7 +54,7 @@ public class Serializar {
                 lista.add(adepta);
             }
 
-            ObjectOutput oos = new ObjectOutputStream(new FileOutputStream(ruta));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ruta));
             oos.writeObject(lista);
             System.out.println("Serialización completada con exito en: " + ruta);
 

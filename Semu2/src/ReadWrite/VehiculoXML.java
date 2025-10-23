@@ -11,38 +11,38 @@ public class VehiculoXML {
 
     public static void crearVehiculoXML (List<Vehiculo> listaVehiculo, String ruta) {
         try {
-            XMLOutputFactory xof = XMLOutputFactory.newFactory();
-            XMLStreamWriter xsw = xof.createXMLStreamWriter(new FileWriter(ruta));
+            XMLOutputFactory factory  = XMLOutputFactory.newFactory();
+            XMLStreamWriter writer  = factory .createXMLStreamWriter(new FileWriter(ruta));
 
-            xsw.writeStartDocument("1.0");
-            xsw.writeStartElement("vehiculos");
+            writer .writeStartDocument("1.0");
+            writer .writeStartElement("vehiculos");
 
             for (Vehiculo vehiculo : listaVehiculo) {
-                xsw.writeStartElement("vehiculo");
-                xsw.writeAttribute("id", String.valueOf(vehiculo.getId()));
+                writer .writeStartElement("vehiculo");
+                writer .writeAttribute("id", String.valueOf(vehiculo.getId()));
 
-                xsw.writeStartElement("modelo");
-                xsw.writeCharacters(vehiculo.getModelo());
-                xsw.writeEndElement();
+                writer .writeStartElement("modelo");
+                writer .writeCharacters(vehiculo.getModelo());
+                writer .writeEndElement();
 
-                xsw.writeStartElement("marca");
-                xsw.writeCharacters(vehiculo.getMarca());
-                xsw.writeEndElement();
+                writer .writeStartElement("marca");
+                writer .writeCharacters(vehiculo.getMarca());
+                writer .writeEndElement();
 
-                xsw.writeStartElement("ano");
-                xsw.writeCharacters(String.valueOf(vehiculo.getAno()));
-                xsw.writeEndElement();
+                writer .writeStartElement("ano");
+                writer .writeCharacters(String.valueOf(vehiculo.getAno()));
+                writer .writeEndElement();
 
-                xsw.writeStartElement("descripcion");
-                xsw.writeCharacters(vehiculo.getDescripcion());
-                xsw.writeEndElement();
+                writer .writeStartElement("descripcion");
+                writer .writeCharacters(vehiculo.getDescripcion());
+                writer .writeEndElement();
 
-                xsw.writeEndElement(); // </vehiculo>
+                writer .writeEndElement(); // </vehiculo>
             }
-            xsw.writeEndElement(); // </vehiculos>
-            xsw.writeEndDocument();
-            xsw.flush();
-            xsw.close();
+            writer .writeEndElement(); // </vehiculos>
+            writer .writeEndDocument();
+            writer .flush();
+            writer .close();
 
             System.out.println("Archivo xml creado correctamente");
 

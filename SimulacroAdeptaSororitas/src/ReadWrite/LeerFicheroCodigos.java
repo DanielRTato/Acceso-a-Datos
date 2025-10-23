@@ -11,14 +11,27 @@ public class LeerFicheroCodigos {
     public static List<Integer> leerCodigos(String ruta) {
         List<Integer> codigos = new ArrayList<>();
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(ruta));
-            String liña;
-            while ((liña = br.readLine()) != null) {
-                codigos.add(Integer.parseInt(liña.trim()));
+        File archivo = new File(ruta);
+        if (!archivo.exists()) {
+            System.out.println("El archivo no existe: " + ruta);
+            return codigos; // lista vacía
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                linea = linea.trim();
+                if (!linea.isEmpty()) {
+                    try {
+                        codigos.add(Integer.parseInt(linea));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Línea no válida (no es número): " + linea);
+                    }
+                }
             }
+            System.out.println("Fichero leído correctamente. Total códigos: " + codigos.size());
         } catch (IOException e) {
-            System.out.println("Error al leer el fichero de códigos: " + e);
+            System.out.println("Error al leer el fichero de códigos: " + e.getMessage());
         }
         return codigos;
     }

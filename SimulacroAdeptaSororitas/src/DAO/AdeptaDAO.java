@@ -34,28 +34,29 @@ public class AdeptaDAO {
 
 
     public AdeptaSororitas buscarPorCodigo(int cod) {
-        AdeptaSororitas sororita = null;
         String sql = "SELECT * FROM adeptaSororitas WHERE cod = ?";
-
         try (Connection conn = Conexion.conexion();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, cod);
-            ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                sororita = new AdeptaSororitas(
-                        rs.getInt("cod"),
-                        rs.getString("nome"),
-                        rs.getInt("puntos")
-                );
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new AdeptaSororitas(
+                            rs.getInt("cod"),
+                            rs.getString("nome"),
+                            rs.getInt("puntos")
+                    );
+                } else {
+                    System.out.println(" No se encontró ninguna Sororita con código: " + cod);
+                }
             }
 
         } catch (SQLException e) {
             System.out.println("Error al buscar por código: " + e.getMessage());
         }
 
-        return sororita;
+        return null;
     }
 
     // Calucla la media desde la BD con una consulta

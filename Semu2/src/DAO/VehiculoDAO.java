@@ -33,6 +33,7 @@ public class VehiculoDAO {
         return lista;
     }
 
+
     public void insertarVehiculo(Vehiculo vehiculo) {
         String consulta = "insert into vehiculo (modelo, marca, ano, descripcion) values (?,?,?,?)";
 
@@ -73,7 +74,7 @@ public class VehiculoDAO {
     }
 
     public void actualizarVehiculo(Vehiculo vehiculo) {
-        String consulta = "update vehioculo set modelo = ?, marca = ?, ano = ?, descripcion  = ? where id = ?";
+        String consulta = "update vehiculo set modelo = ?, marca = ?, ano = ?, descripcion  = ? where id = ?";
 
         try (Connection conn = Conexion.conexion();
              PreparedStatement stmt = conn.prepareStatement(consulta)) {
@@ -82,6 +83,7 @@ public class VehiculoDAO {
             stmt.setString(2, vehiculo.getModelo());
             stmt.setInt(3, vehiculo.getAno());
             stmt.setString(4, vehiculo.getDescripcion());
+
             int filas = stmt.executeUpdate();
             if (filas > 0) {
                 System.out.println("Vehiculo actualizado correctamente: " + vehiculo.getModelo());

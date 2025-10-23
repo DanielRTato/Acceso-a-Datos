@@ -109,7 +109,7 @@ public class Main {
         // Leer todos de la BD
         List<SpaceMarine> marines = Spacedao.obtenerTodos();
 
-        System.out.println("📋 Unidades de Space Marines:");
+        System.out.println("Unidades de Space Marines:");
         for (SpaceMarine m : marines) {
             System.out.println(m);
         }
